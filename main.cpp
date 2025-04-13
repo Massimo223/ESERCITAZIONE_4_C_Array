@@ -3,23 +3,21 @@
 #include <fstream>
 #include <vector>
 #include <iomanip>
+#include "src/Utils.hpp"
 
 using namespace std;
 
 int main() {
-	ifstream inputFile("data.txt");
+	ifstream file("data.txt");
 	ofstream outputFile("result.txt");
 	outputFile << setprecision(2) << fixed;
 	vector<double> w ;
 	vector<double> r;
-	vector<string> righe_file;
     string riga;
 	double S;
 	double rate_of_return;
 	double V;
-	while (getline(inputFile,riga)) {       // Prendo le righe del file "data.txt" (che sono stringhe) e con queste riempio
-		righe_file.push_back(riga);         // un vettore di stringhe (righe_file)
-	}
+	vector<string> righe_file = file_per_righe(file);   // Funzione per creare un vettore di stringhe a partire da un file
 	int n_righe = righe_file.size();
 	for (int j = 0; j < n_righe; j++) {
 		vector<char> vettore_caratteri(righe_file[j].begin(), righe_file[j].end());
@@ -59,8 +57,8 @@ int main() {
 	outputFile << defaultfloat;
 	for (int i = 0; i < n_assets; i++) {
 		outputFile << setprecision(2) << w[i] << " ";
-		V += (1 + r[i]) * w[i] * S;
 	}
+	V = valore_finale_portfolio(r,w,S);  // Funzione per il calcolo del valore finale del portfolio
 	rate_of_return = V/S - 1.00;
 	outputFile << "]" << "\n" << "r = [ ";             // Stampo le righe mancanti su "result.txt"
 	for (int i = 0; i < n_assets; i++) {
