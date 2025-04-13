@@ -5,7 +5,7 @@ using namespace std;
 vector<string> file_per_righe (ifstream& file) {
 	vector<string> r_f;
 	string riga;
-	while (getline(file,riga)) {       // Prendo le righe di un file(che sono stringhe) e con queste creo
+	while (getline(file,riga)) {       // Prendo le righe di un file (che sono stringhe) e con queste creo
 	r_f.push_back(riga);                   // un vettore di stringhe (r_f)
 	}
 	return r_f;
